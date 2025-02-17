@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "name": "个人博客网站",
+        "stack": "Vue 3, TailwindCSS, GitHub Pages",
+        "date": "2025-01-20之前",
+        "description": "这是一个基于 Vue 开发的个人博客",
+        "review": "开发过程中加深了对前端框架和响应式设计的理解。"
+    },
+    {
+        "id": 2,
+        "name": "游戏管理器",
+        "stack": "python nicegui",
+        "date": "2025-01-20之前",
+        "description": "一个基于nicegui开发的web应用，可以有效地管理本地游戏，记录下我的游戏时光",
+        "review": "本应该是一个桌面应用，但是因为某些原因，只能做成web应用，我还不得不解决异步多线程的问题，我很喜欢这个项目，它对我来说很实用"
+    },
+    {
+        "id": 3,
+        "name": "传统爬虫程序",
+        "stack": "python selenium pandas",
+        "date": "2025-01-20之前",
+        "description": "一个可以爬取闲鱼商品信息的爬虫程序，并且使用pands进行数据分析",
+        "review": "传统爬虫模拟自动化爬取效率低，并且被检测到的风险也高，尽管我做了优化，但是还是不尽人意"
+    },
+    {
+        "id": 4,
+        "name": "web游戏-香蕉帝国",
+        "stack": "flask vue",
+        "date": "2025-01-20之前",
+        "description": "一个糟糕的web游戏，包含一个糟糕的服务器端和前端",
+        "review": "或许游戏的设计理念是好的，但是当时我处于起步阶段，许多东西都不成熟，导致游戏体验很差"
+    },
+    {
+        "id": 5,
+        "name": "失物招领管理系统",
+        "stack": "java springboot生态 TailwindCSS thymeleaf",
+        "date": "2025-01-20之前",
+        "description": "一个基于springboot开发的失物招领管理系统，具有简单的crud和一个登录功能",
+        "review": "这个项目是我在大学期间做的第一个Java web项目，我从中学习到了许多东西，虽然它很烂"
+    }
+]

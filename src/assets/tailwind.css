@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@theme{
+    --font-sans:'myfont', sans-serif;
+}
+@layer base{
+    @font-face{
+        font-family: 'myfont';
+        src :url(/fonts/AlimamaFangYuanTiVF-Thin-2.woff2)format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    html{
+        font-family:var(--font-sans);
+    }
+}
