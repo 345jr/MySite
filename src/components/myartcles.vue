@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue';
 import { RouterLink } from 'vue-router';
 const props = defineProps({
   idea: {
@@ -15,7 +14,7 @@ const props = defineProps({
       <h3 class="text-lg font-semibold text-gray-800">{{ idea.title }}</h3>
       <p class="text-sm text-gray-500 mt-1">{{ idea.summary }}</p>
       <p>发布时间 :{{ idea.time }}</p>
-      <RouterLink :to="`/page/${idea.id}`">查看更多</RouterLink>
+      <RouterLink :to="`/page/${idea.id}`" class="text-blue-500 mt-2 hover:text-rose-900">查看更多</RouterLink>
     </div>
   </div>
 </template>
