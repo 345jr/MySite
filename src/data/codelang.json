@@ -1,0 +1,27 @@
+[
+  {
+      "id": 1,
+      "name": "Java",
+      "days": 3,
+      "stack": "Backend"
+  },
+  {
+      "id": 2,
+      "name": "Python",
+      "days": 7,
+      "stack": "Data Science"
+  },
+  {
+      "id": 3,
+      "name": "PHP",
+      "days": 12,
+      "stack": "Web Backend"
+
+  },
+  {
+      "id": 4,
+      "name": "HTML+CSS+JS",
+      "days": 15,
+      "stack": "Frontend"
+  }
+]
