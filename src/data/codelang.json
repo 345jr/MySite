@@ -23,5 +23,11 @@
       "name": "HTML+CSS+JS",
       "days": 15,
       "stack": "Frontend"
+  },
+  {
+    "id": 4,
+    "name": "vue",
+    "days": 15,
+    "stack": "Frontend"
   }
 ]

@@ -1,5 +1,5 @@
 <script setup>
-import Data from '@/data.json'
+import Data from '@/data/artcles_data.json'
 import { useRoute } from 'vue-router'
 import { ref, shallowRef, watchEffect} from 'vue'
 const router = useRoute()
@@ -34,40 +34,56 @@ watchEffect(async () => {
 
 <style>
 /* Markdown 样式 */
+
+.markdown-content h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #c7551c;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
 .markdown-content h2 {
     font-size: 1.75rem;
     font-weight: 700;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    color: #1a202c;
-    border-bottom: 1px solid #e2e8f0;
+    color: #a1c91b;
+    border-bottom: 2px solid #e2e8f0;
     padding-bottom: 0.5rem;
 }
 
 .markdown-content h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.6rem;
+    font-weight: 700;
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
-    color: #2d3748;
+    color: #1fc9b0;
 }
 
 .markdown-content h4 {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
-    color: #4a5568;
+    text-decoration: underline;
+    color: #2159ba;
+    
 }
 
 .markdown-content p {
     margin-bottom: 1rem;
     line-height: 1.7;
+    font-size: 1.15rem;
 }
 
 .markdown-content ul, .markdown-content ol {
-    margin-left: 1.5rem;
+    list-style-type: disc;
+    margin-left: 1rem; 
     margin-bottom: 1rem;
+    padding-left: 1rem;
 }
 
 .markdown-content li {

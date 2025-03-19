@@ -1,5 +1,5 @@
 <script setup>
-import Data from "@/data2.json";
+import Data from "@/data/works_data.json";
 import { ref, onMounted } from "vue";
 import { gsap } from "gsap";
 import avatar from "@/assets/avatar.webp";

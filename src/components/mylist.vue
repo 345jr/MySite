@@ -1,14 +1,14 @@
 <script setup>
 import ArticleCard from "./myartcles.vue";
 import BottomList from "@/components/BottomList.vue";
-import Data from "@/data.json";
+import artcleData from "@/data/artcles_data.json";
 import gamesData from "@/data/games.json";
 import musicData from "@/data/musics.json";
 import tasksData from "@/data/tasks.json";
 import { ref, onMounted } from "vue";
 import { gsap } from "gsap";
 
-const MyIdeas = ref(Data);
+const MyIdeas = ref(artcleData);
 const Mylove1 = ref(gamesData);
 const Mylove2 = ref(musicData);
 const Mylove3 = ref(tasksData);
