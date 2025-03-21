@@ -1,3 +1,5 @@
+<!-- 代码记录学习组件 -->
+
 <script setup>
 import { ref, onMounted , nextTick } from "vue";
 import gsap from "gsap";

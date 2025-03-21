@@ -1,8 +1,9 @@
+<!-- 气泡作品展示组件 -->
+
 <script setup>
 import Data from "@/data/works_data.json";
 import { ref, onMounted } from "vue";
 import { gsap } from "gsap";
-import avatar from "@/assets/avatar.webp";
 
 const projects = ref(Data);
 const bubbles = ref([]);
@@ -64,7 +65,7 @@ const closeDetails = () => {
     <!-- 中心头像 -->
     <div class="absolute z-10" :style="{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }">
       <img
-        :src="avatar"
+        src="/img/avatar.webp"
         class="w-24 h-24 rounded-full border-4 border-white shadow-2xl object-cover transform hover:scale-110 transition-transform duration-300"
         alt="Avatar"
       />

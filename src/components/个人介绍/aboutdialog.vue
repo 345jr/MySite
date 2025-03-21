@@ -1,3 +1,5 @@
+<!-- 个人介绍弹窗组件 -->
+
 <script setup>
 import { ref } from 'vue';
 

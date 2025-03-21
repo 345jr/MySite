@@ -1,3 +1,5 @@
+<!-- 404页面 -->
+
 <script setup>
 import { RouterLink } from 'vue-router';
 </script>

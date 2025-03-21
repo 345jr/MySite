@@ -1,3 +1,5 @@
+<!-- 每一篇文章的详细页面 -->
+
 <script setup>
 import Data from '@/data/artcles_data.json'
 import { useRoute } from 'vue-router'

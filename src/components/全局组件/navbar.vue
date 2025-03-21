@@ -1,3 +1,5 @@
+<!-- 导航栏组件 -->
+
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 
@@ -12,8 +14,15 @@ const navigate = (path) => {
 </script>
 
 <template>
-  <nav class="bg-white shadow-md p-4 flex justify-between">
-    <div class="flex space-x-4">
+  <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+    <!-- 网站标题  -->
+    <div class="hidden lg:block">
+      <h1 class="text-4xl font-bold ml-24">
+        <span class="text-blue-300">Lo</span><span class="text-black">pop</span>
+      </h1>
+    </div>
+    <!-- 导航按钮  -->
+    <div class="flex space-x-4 mx-auto lg:mx-0">
       <button
         @click="navigate('/')"
         :class="{

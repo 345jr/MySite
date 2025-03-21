@@ -1,6 +1,8 @@
+<!-- 文章+我的喜爱组件 -->
+
 <script setup>
 import ArticleCard from "./myartcles.vue";
-import BottomList from "@/components/BottomList.vue";
+import BottomList from "@/components/文章主页/BottomList.vue";
 import artcleData from "@/data/artcles_data.json";
 import gamesData from "@/data/games.json";
 import musicData from "@/data/musics.json";
@@ -69,19 +71,19 @@ onMounted(() => {
 <template>
   <div class="flex flex-col items-center space-y-2 py-6">
     <!-- 文章列表部分 -->
-    <section class="bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <section class="bg-gray-50 py-8 px-4 sm:px-6 lg:px-8 lg:mr-30">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
           📖文章列表📖
         </h2>
-        <div class="grid gap-6 grid-cols-2 md:grid-cols-3">
+        <div class="grid gap-4 grid-cols-2 md:grid-cols-3">
           <ArticleCard v-for="idea in MyIdeas" :key="idea.id" :idea="idea" />
         </div>
       </div>
     </section>
     
     <!-- 三个新组件部分 -->
-    <div class="w-full max-w-6xl mx-auto px-4">
+    <div class="w-full max-w-6xl sm:mx-auto px-4 lg:ml-30">
       <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
         <!-- 游戏列表 -->
         <div class="border-2 border-pink-200 rounded-lg overflow-hidden h-full flex flex-col">
