@@ -18,7 +18,6 @@ const languages = ref(
   })
 );
 
-console.log(languages.value);
 
 // 获取阶段文本
 const getStageText = (stage) => {
