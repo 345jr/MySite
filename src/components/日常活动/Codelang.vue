@@ -4,21 +4,30 @@
 import { ref, onMounted , nextTick } from "vue";
 import gsap from "gsap";
 import languageData from "@/data/codelang.json";
+import axios from 'axios';
 
 // 计算阶段
-const languages = ref(
-  languageData.map((lang) => {
-    const stage =Math.floor(lang.days / 5) + 1;
-    const remainingDays = lang.days % 5;
-    return {
-      ...lang, //id ,名字 ，天数 ，技术栈
-      stage,
-      remainingDays,
-    };
-  })
-);
+// const languages = ref(
+//   languageData.map((lang) => {
+//     const stage =Math.floor(lang.days / 5) + 1;
+//     const remainingDays = lang.days % 5;
+//     return {
+//       ...lang, //id ,名字 ，天数 ，技术栈
+//       stage,
+//       remainingDays,
+//     };
+//   })
+// );
 
-
+const getYourLangData = async () => {
+  try {
+    const response = await axios.get( 'localhost:8080/api/lang');
+      
+  }  
+  catch (error) {
+    
+  }
+}
 // 获取阶段文本
 const getStageText = (stage) => {
   switch (stage) {

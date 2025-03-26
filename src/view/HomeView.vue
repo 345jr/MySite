@@ -6,7 +6,7 @@ import About from "@/components/个人介绍/about.vue";
 </script>
 
 <template>
-  <div class="w-full mx-4 px-4 py-4">
+  <div class="w-full py-4 ">
     <div class="flex flex-col lg:flex-row gap-1">
       <!-- 左侧文章列表 -->
       <div class="md:w-4/5">
