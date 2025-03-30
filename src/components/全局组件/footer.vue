@@ -2,14 +2,20 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-
+import { useRoute, useRouter } from "vue-router";
 const currentYear = new Date().getFullYear();
 
 const uptime = ref({ days: 0, hours: 0 });
 const startTime = ref('');
 const isLoading = ref(true);
 const error = ref(null);
+const route = useRoute();
+const router = useRouter();
 
+const isActive = (routePath) => route.path === routePath;
+const navigate = (path) => {
+  router.push(path);
+};
 const fetchUptime = async () => {
   try {
     const response = await fetch('https://api.lopop.top/api/start-time');
@@ -41,16 +47,44 @@ onMounted(() => {
                             <span class="text-blue-300">Lo</span><span class="text-gray-800">pop</span>
                         </h2>
                     </div>
-                    <p class="text-sm mt-2">© {{ currentYear }} Lopop个人博客. 保留所有权利.</p>
+                    <p class="text-sm mt-2">© {{ currentYear }} Lopop个人博客.</p>
                 </div>
 
                 <!-- 中间导航链接 -->
                 <div class="mb-4 md:mb-0">
                     <ul class="flex flex-wrap justify-center gap-4">
-                        <li><a href="/" class="hover:text-blue-500 transition-colors">首页</a></li>
-                        <li><a href="/#/about" class="hover:text-blue-500 transition-colors">关于我</a></li>
-                        <li><a href="/#/work" class="hover:text-blue-500 transition-colors">作品集</a></li>
-                        <li><a href="/#/daily" class="hover:text-blue-500 transition-colors">日常</a></li>
+                        <li>
+                            <button @click="navigate('/')" :class="{
+                                'text-blue-600 font-bold': isActive('/'),
+                                'text-gray-700': !isActive('/'),
+                            }" class="px-4 py-2 rounded-md hover:bg-gray-100">
+                                文章主页
+                            </button>
+                        </li>
+                        <li>
+                            <button @click="navigate('/about')" :class="{
+                                'text-blue-600 font-bold': isActive('/about'),
+                                'text-gray-700': !isActive('/about'),
+                            }" class="px-4 py-2 rounded-md hover:bg-gray-100">
+                                个人介绍
+                            </button>
+                        </li>
+                        <li>
+                            <button @click="navigate('/work')" :class="{
+                                'text-blue-600 font-bold': isActive('/work'),
+                                'text-gray-700': !isActive('/work'),
+                            }" class="px-4 py-2 rounded-md hover:bg-gray-100">
+                                我的作品
+                            </button>
+                        </li>
+                        <li>
+                            <button @click="navigate('/daily')" :class="{
+                                'text-blue-600 font-bold': isActive('/daily'),
+                                'text-gray-700': !isActive('/daily'),
+                            }" class="px-4 py-2 rounded-md hover:bg-gray-100">
+                                日常活动
+                            </button>
+                        </li>
                     </ul>
                 </div>
 
