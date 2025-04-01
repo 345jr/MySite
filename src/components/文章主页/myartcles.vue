@@ -15,7 +15,7 @@ const props = defineProps({
       <!-- 大屏幕布局 -->
       <div class="hidden sm:flex sm:flex-col h-full">
         <div class="w-full h-48 overflow-hidden">
-          <img :src="idea.img" alt="Article Image" class="w-full h-full object-cover">
+          <img :src="idea.img" alt="Article Image" class="w-full h-full object-cover" loading="lazy">
         </div>
         <div class="p-4 flex-1 flex flex-col">
           <h3 class="text-lg font-semibold text-gray-800">{{ idea.title }}</h3>
