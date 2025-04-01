@@ -16,6 +16,7 @@ Dockerfile
 
 # Editor directories and files
 .vscode/
+.public/
 .idea
 .DS_Store
 *.suo
