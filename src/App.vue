@@ -4,7 +4,6 @@ import { gsap } from 'gsap';
 import Navbar from '@/components/全局组件/navbar.vue';
 import Footer from '@/components/全局组件/footer.vue';
 import LoadingScreen from '@/components/全局组件/LoadingScreen.vue';
-import Time from '@/components/全局组件/time.vue';
 
 const isLoading = ref(true);
 const mainContent = ref(null);
@@ -64,7 +63,7 @@ watch(() => isLoading.value, (newValue) => {
   <!-- 加载页面 -->
   <LoadingScreen :isLoading="isLoading" />
 
-  <!-- 主应用内容，当加载完成后显示 -->
+  <!-- 主应用内容 -->
   <div 
     ref="mainContent" 
     :class="{ 'invisible': isLoading, 'visible': !isLoading }" 

@@ -7,7 +7,7 @@ import artcleData from "@/data/artcles_data.json";
 import gamesData from "@/data/games.json";
 import musicData from "@/data/musics.json";
 import tasksData from "@/data/tasks.json";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { gsap } from "gsap";
 
 const MyIdeas = ref(artcleData);
@@ -20,7 +20,24 @@ const gamesCard = ref(null);
 const musicsCard = ref(null);
 const tasksCard = ref(null);
 
+// 添加移动端轮播状态
+const currentCardIndex = ref(0);
+const cardTitles = ["BEST游戏", "BEST游戏OST", "待办事项"];
+
+// 切换卡片的方法
+const nextCard = () => {
+  currentCardIndex.value = (currentCardIndex.value + 1) % 3;
+};
+
+const prevCard = () => {
+  currentCardIndex.value = (currentCardIndex.value - 1 + 3) % 3;
+};
+
+// 计算当前显示的卡片标题
+const currentTitle = computed(() => cardTitles[currentCardIndex.value]);
+
 onMounted(() => {
+  // 原有动画代码保持不变
   setTimeout(() => {
     if (gamesCard.value) {
       const items = gamesCard.value.querySelectorAll("li");
@@ -84,12 +101,30 @@ onMounted(() => {
       </div>
     </section>
 
-    <!-- 三个新组件部分 -->
+    <!-- 三个新组件部分 - 支持移动端轮播 -->
     <div class="w-full max-w-6xl sm:mx-auto px-4 lg:ml-30">
+      <!-- 移动端导航按钮 -->
+      <div class="md:hidden flex justify-between items-center mb-4 border-blue-300 border-2 rounded-l rounded-r">
+        <button 
+          @click="prevCard" 
+          class="bg-blue-300 text-gray-800 font-bold py-2 px-4 "
+        >
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        <h3 class="text-lg font-bold  ">{{ currentTitle }}</h3>
+        <button 
+          @click="nextCard" 
+          class="bg-blue-300 text-gray-800 font-bold py-2 px-4 "
+        >
+          <i class="pi pi-chevron-right"></i>
+        </button>
+      </div>
+
       <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
         <!-- 游戏列表 -->
         <div
           class="border-2 border-pink-200 rounded-lg overflow-hidden h-full flex flex-col"
+          :class="{'hidden md:flex': currentCardIndex !== 0}"
         >
           <div ref="gamesCard">
             <BottomList title="BEST游戏" :items="Mylove1">
@@ -122,6 +157,7 @@ onMounted(() => {
         <!-- 音乐列表 -->
         <div
           class="border-2 border-pink-200 rounded-lg overflow-hidden h-full flex flex-col"
+          :class="{'hidden md:flex': currentCardIndex !== 1}"
         >
           <div ref="musicsCard">
             <BottomList title="BEST游戏OST" :items="Mylove2">
@@ -154,6 +190,7 @@ onMounted(() => {
         <!-- 待办事项列表 -->
         <div
           class="border-2 border-pink-200 rounded-lg overflow-hidden h-full flex flex-col"
+          :class="{'hidden md:flex': currentCardIndex !== 2}"
         >
           <div ref="tasksCard">
             <BottomList title="待办事项" :items="Mylove3">
@@ -186,3 +223,7 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+
+</style>
