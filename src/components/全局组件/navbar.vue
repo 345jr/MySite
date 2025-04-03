@@ -118,7 +118,7 @@ const togglePlay = async () => {
 };
 // 格式化歌名
 const formatSongName = (song) => {
-  return song.replace(/^music\//, "").replace(/\.(mp3|flac|wav|ogg)$/, "");
+  return song.replace(/^music\//, "").replace(/\.(mp3|flac|wav|ogg|mp4)$/, "");
 };
 
 const musicMenu = ref(null);

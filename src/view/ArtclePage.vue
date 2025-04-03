@@ -26,8 +26,8 @@ watchEffect(async () => {
         <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 md:p-10">
             <h1 class="text-3xl font-bold text-gray-800">{{ article.title }}</h1>
             <div class="flex flex-row justify-normal">
-                <p class="text-gray-500 my-6 px-2">发布时间：{{ article.time }}</p>
-                <p class="text-gray-500 my-6 px-2">更新时间：{{ article.uptime }}</p>
+                <p class="text-gray-500 my-6 px-2 whitespace-nowrap">发布时间：{{ article.time }}</p>
+                <p class="text-gray-500 my-6 px-2 whitespace-nowrap">更新时间：{{ article.uptime }}</p>
             </div>
             
             <div class="markdown-content">
