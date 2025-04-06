@@ -18,9 +18,9 @@ const props = defineProps({
           <img :src="idea.img" alt="Article Image" class="w-full h-full object-cover" loading="lazy">
         </div>
         <div class="p-4 flex-1 flex flex-col">
-          <h3 class="text-lg font-semibold text-gray-800">{{ idea.title }}</h3>
+          <h3 class="text-lg font-bold text-gray-800">{{ idea.title }}</h3>
           <p class="text-sm text-gray-500 mt-1 flex-1">{{ idea.summary }}</p>
-          <p class="text-sm text-gray-600 mt-2">发布时间: {{ idea.time }}</p>
+          <p class="pi pi-calendar-clock text-sm text-gray-600 mt-2">{{ idea.time }}</p>          
         </div>
       </div>
 

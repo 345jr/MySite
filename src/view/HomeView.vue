@@ -7,7 +7,7 @@ import GameBlock from "../components/快乐区块/GameBlock.vue";
 </script>
 
 <template>
-  <div class="w-full py-4 ">
+  <div class="w-full">
     <!-- 手机端显示的谏言区块 -->
     <div class="block lg:hidden mb-4">
       <GameBlock />
@@ -15,7 +15,7 @@ import GameBlock from "../components/快乐区块/GameBlock.vue";
 
     <div class="flex flex-col lg:flex-row gap-1">
       <!-- 左侧文章列表 -->
-      <div class="md:w-4/5">
+      <div class="md:w-4/5 ">
         <MyList />
       </div>
 

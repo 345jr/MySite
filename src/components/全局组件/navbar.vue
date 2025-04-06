@@ -23,6 +23,7 @@ const toggleMenu = () => {
   if (isMenuOpen.value) {
     gsap.to(menuRef.value, {
       x: 300,
+      y:-300,
       opacity: 0,
       duration: 0.5,
       ease: "power2.out",
@@ -37,14 +38,14 @@ const toggleMenu = () => {
 // 监听菜单状态变化，添加动画
 watch(isMenuOpen, async (newValue, oldValue) => {
   await nextTick();
-  console.log(newValue + " | " + menuRef.value);
+  // console.log(newValue + " | " + menuRef.value);
 
   if (newValue && menuRef.value) {
     // 菜单打开动画
     gsap.fromTo(
       menuRef.value,
-      { x: 300, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+      { y:-300, x:300 ,opacity: 0 },
+      { y:0, x:0 ,opacity: 1, duration: 0.5, ease: "power2.out" }
     );
   }
 });
@@ -76,19 +77,19 @@ const selectSong = async (song) => {
     if (audioPlayer.value && !audioPlayer.value.paused) {
       audioPlayer.value.pause();
     }
-    
+
     currentSong.value = song;
-    
+
     if (audioPlayer.value) {
       // 设置新音频源
       audioPlayer.value.src = `https://music.lopop.top/api/bgm?name=${song}`;
-      
+
       // 等待音频加载
       await new Promise((resolve, reject) => {
         audioPlayer.value.onloadedmetadata = resolve;
         audioPlayer.value.onerror = reject;
       });
-      
+
       // 如果之前是播放状态，则播放新歌曲
       if (isPlaying.value) {
         await audioPlayer.value.play();
@@ -140,8 +141,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="w-full bg-white shadow-md p-4 flex justify-between items-center">
-    <!-- 网站标题 -->
+  <nav class="w-full bg-white/80 backdrop-blur-md shadow-md p-4 flex justify-between items-center z-20"> <!-- 网站标题 -->
     <div class="hidden lg:block">
       <h1 class="text-4xl font-bold ml-24">
         <span class="text-blue-300">Lo</span><span class="text-black">pop</span>
@@ -156,27 +156,27 @@ onMounted(() => {
     <!-- 桌面端导航按钮 -->
     <div class="hidden lg:flex space-x-4 mx-auto lg:mx-0">
       <button @click="navigate('/')" :class="{
-      'text-blue-600 font-bold': isActive('/'),
-      'text-gray-700': !isActive('/'),
-    }" class="px-4 py-2 rounded-md hover:bg-gray-100">
+        'text-blue-600 font-bold': isActive('/'),
+        'text-gray-700': !isActive('/'),
+      }" class="px-4 py-2 rounded-md hover:bg-gray-100">
         文章主页
       </button>
       <button @click="navigate('/about')" :class="{
-      'text-blue-600 font-bold': isActive('/about'),
-      'text-gray-700': !isActive('/about'),
-    }" class="px-4 py-2 rounded-md hover:bg-gray-100">
+        'text-blue-600 font-bold': isActive('/about'),
+        'text-gray-700': !isActive('/about'),
+      }" class="px-4 py-2 rounded-md hover:bg-gray-100">
         个人介绍
       </button>
       <button @click="navigate('/work')" :class="{
-      'text-blue-600 font-bold': isActive('/work'),
-      'text-gray-700': !isActive('/work'),
-    }" class="px-4 py-2 rounded-md hover:bg-gray-100">
+        'text-blue-600 font-bold': isActive('/work'),
+        'text-gray-700': !isActive('/work'),
+      }" class="px-4 py-2 rounded-md hover:bg-gray-100">
         我的作品
       </button>
       <button @click="navigate('/daily')" :class="{
-      'text-blue-600 font-bold': isActive('/daily'),
-      'text-gray-700': !isActive('/daily'),
-    }" class="px-4 py-2 rounded-md hover:bg-gray-100">
+        'text-blue-600 font-bold': isActive('/daily'),
+        'text-gray-700': !isActive('/daily'),
+      }" class="px-4 py-2 rounded-md hover:bg-gray-100">
         日常活动
       </button>
     </div>
@@ -184,7 +184,7 @@ onMounted(() => {
     <!-- 音乐播放器 -->
     <div class="flex items-center space-x-4">
 
-      <div class="md:block text-sm text-gray-500 italic">       
+      <div class="md:block text-sm text-gray-500 italic">
         可以点歌哦
         <i class="pi pi-angle-right "></i>
       </div>
@@ -222,36 +222,36 @@ onMounted(() => {
     </div>
 
     <!-- 移动端导航菜单 -->
-    <div v-show="isMenuOpen" class="fixed inset-0 backdrop-blur-sm bg-white/30 z-50 lg:hidden" @click="toggleMenu">
-      <div ref="menuRef" class="absolute right-0 top-0 h-full w-64 bg-white shadow-lg" @click.stop>
+    <div v-show="isMenuOpen" class="fixed inset-0 z-50  lg:hidden" @click="toggleMenu">
+      <div ref="menuRef" class="absolute right-0 top-0  w-64 bg-pink-500 shadow-lg " @click.stop>
         <div class="flex justify-end p-4">
           <button @click="toggleMenu" class="text-gray-700">
             <i class="pi pi-times text-xl"></i>
           </button>
         </div>
-        <div class="flex flex-col p-4 space-y-2">
+        <div class="flex flex-col p-4 space-y-2 bg-white   ">
           <button @click="navigate('/')" :class="{
-      'text-blue-600 font-bold': isActive('/'),
-      'text-gray-700': !isActive('/'),
-    }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
+            'text-blue-600 font-bold': isActive('/'),
+            'text-gray-700': !isActive('/'),
+          }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left border-t border-gray-200">
             文章主页
           </button>
           <button @click="navigate('/about')" :class="{
-      'text-blue-600 font-bold': isActive('/about'),
-      'text-gray-700': !isActive('/about'),
-    }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
+            'text-blue-600 font-bold': isActive('/about'),
+            'text-gray-700': !isActive('/about'),
+          }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
             个人介绍
           </button>
           <button @click="navigate('/work')" :class="{
-      'text-blue-600 font-bold': isActive('/work'),
-      'text-gray-700': !isActive('/work'),
-    }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
+            'text-blue-600 font-bold': isActive('/work'),
+            'text-gray-700': !isActive('/work'),
+          }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
             我的作品
           </button>
           <button @click="navigate('/daily')" :class="{
-      'text-blue-600 font-bold': isActive('/daily'),
-      'text-gray-700': !isActive('/daily'),
-    }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
+            'text-blue-600 font-bold': isActive('/daily'),
+            'text-gray-700': !isActive('/daily'),
+          }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
             日常活动
           </button>
           <!-- 优化后的移动端音乐播放器 -->
@@ -263,7 +263,7 @@ onMounted(() => {
               <span class="text-sm text-gray-600">当前:
                 {{ currentSong ? formatSongName(currentSong) : "无" }}</span>
             </div>
-            
+
           </div>
         </div>
       </div>

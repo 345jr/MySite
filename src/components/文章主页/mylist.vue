@@ -86,12 +86,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center space-y-2 py-6">
+  <div class="flex flex-col items-center space-y-2 ">
     <!-- 文章列表部分 -->
-    <section class="bg-gray-50 w-full px-6 py-8 lg:px-8 lg:mr-30">
+    <section class=" w-full px-6 py-8 lg:px-8 lg:mr-30">
       <div class="w-full sm:max-w-4xl mx-auto">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
-          📖文章列表📖
+        <h2 class="text-2xl lg:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
+          <i class="pi pi-bookmark mr-2"></i>
+          文章列表
+          <i class="pi pi-bookmark mr-2"></i>
+          <span class="block h-1 w-20 bg-blue-300 mx-auto mt-2 rounded-full"></span>
         </h2>
         <div
           class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 "
@@ -102,7 +105,7 @@ onMounted(() => {
     </section>
 
     <!-- 三个新组件部分 - 支持移动端轮播 -->
-    <div class="w-full max-w-6xl sm:mx-auto px-4 lg:ml-30">
+    <div class="w-full max-w-6xl mb-5 sm:mx-auto px-4 lg:ml-30">
       <!-- 移动端导航按钮 -->
       <div class="md:hidden flex justify-between items-center mb-4 border-blue-300 border-2 rounded-l rounded-r">
         <button 

@@ -1,19 +1,16 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
 import { gsap } from 'gsap';
-import advicesData from '@/data/advices.json';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
 
-const advices = ref(advicesData.advices);
-const currentAdvice = ref(advices.value[0]);
+const currentAdvice = ref("");
 const adviceText = ref(null);
 const currentMessageId = ref(null);
 const likeCount = ref(0);
 const hasLiked = ref(false);
 const showMessageDialog = ref(false);
-const newMessage = ref('');
-const messageError = ref('');
+
 
 // 留言表单状态
 const messageForm = reactive({
@@ -32,13 +29,14 @@ const fetchRandomMessage = async () => {
     currentAdvice.value = data.content;
     currentMessageId.value = data.id;
     likeCount.value = data.likes;
-    hasLiked.value = false; // 重置点赞状态
+    // 重置点赞状态
+    hasLiked.value = false; 
 
     // 使用GSAP实现淡出动画
     animateAdviceChange();
   } catch (error) {
     console.error('获取随机留言失败:', error);
-    currentAdvice.value = '获取谏言失败';
+    currentAdvice.value = '获取谏言失败了欸ovo';
   }
 };
 
@@ -88,6 +86,7 @@ const likeMessage = async () => {
       { scale: 1 },
       { scale: 1.3, duration: 0.2, yoyo: true, repeat: 1 }
     );
+    SuccessLikeNotify();
   } catch (error) {
     console.error('点赞失败:', error);
   }
@@ -131,7 +130,7 @@ const submitMessage = async () => {
     messageForm.content = '';
     SuccessNotify();
   } catch (error) {
-    messageForm.error = error.message || '提交留言失败，请稍后再试';
+    messageForm.error = '提交留言失败，请稍后再试';
     ErrorNotify();
     console.error('提交留言失败:', error);
   } finally {
@@ -142,16 +141,22 @@ const submitMessage = async () => {
 const SuccessNotify = () => {
   toast.success("提交成功 !", {
     autoClose: 3000,
-    position: toast.POSITION.TOP_CENTER
-  }); 
+    position: toast.POSITION.TOP_RIGHT
+  });
 }
 const ErrorNotify = () => {
   toast.error("提交失败 !", {
     autoClose: 3000,
-    position: toast.POSITION.TOP_CENTER
+    position: toast.POSITION.TOP_RIGHT
   });
-
 }
+const SuccessLikeNotify = () => {
+    toast.success("点赞成功!", {
+      autoClose: 3000,
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+
 
 onMounted(() => {
   // 初始加载动画
@@ -169,8 +174,7 @@ onMounted(() => {
 
 <template>
   <div class="w-full p-2 md:p-3">
-    <div
-      class=" bg-[#1a4b8c] border-4 border-[#0d3a6e] rounded-lg shadow-lg shadow-blue-500/50 overflow-hidden">
+    <div class=" bg-[#1a4b8c] border-4 border-[#0d3a6e] rounded-lg shadow-lg shadow-blue-500/50 overflow-hidden">
       <div class="bg-[#1a4b8c] text-white px-3 py-2 flex justify-between items-center border-b-2 border-[#0a2e57]">
         <span class="tracking-wider">每日谏言</span>
         <div class="flex items-center gap-2">

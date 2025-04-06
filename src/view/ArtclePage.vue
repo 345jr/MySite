@@ -22,7 +22,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-    <section class="bg-gray-50 py-12 px-6 sm:px-8">
+    <section class=" py-12 px-6 sm:px-8">
         <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 md:p-10">
             <h1 class="text-3xl font-bold text-gray-800">{{ article.title }}</h1>
             <div class="flex flex-row justify-normal">

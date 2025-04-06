@@ -37,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <footer class="bg-gray-100 text-gray-600 py-8 mt-10 border-t border-gray-200">
+    <div class="bg-white text-gray-600 py-8 border-t border-gray-200 relative" >
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <!-- 左侧版权信息 -->
@@ -123,5 +123,5 @@ onMounted(() => {
                 使用 Vue 3 + Tailwind CSS 构建
             </div>
         </div>
-    </footer>
+    </div>
 </template>

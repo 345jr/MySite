@@ -5,7 +5,7 @@ import Dialog from "@/components/个人介绍/aboutdialog.vue";
 </script>
 
 <template>
-  <section class="bg-gray-50 py-12 px-6 sm:px-8">
+  <section class=" py-12 px-6 sm:px-8">
     <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6 md:p-10">
       <div class="flex flex-col md:flex-col items-center md:items-start md:space-x-8">
         <img src="https://asset.lopop.top/public/other-images/avatar.webp" alt="Profile Avatar" class="w-16 h-16 md:w-16 md:h-16 rounded-full object-cover border-4 border-blue-400 shadow-md">
