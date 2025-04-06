@@ -3,6 +3,7 @@ import { ref, onMounted, watch } from 'vue';
 import { gsap } from 'gsap';
 import navbar from '@/components/全局组件/navbar.vue';
 import phoneMenu from '@/components/全局组件/phoneMenu.vue';
+import musicMenu from './components/全局组件/musicMenu.vue';
 import fool from '@/components/全局组件/footer.vue';
 import LoadingScreen from '@/components/全局组件/LoadingScreen.vue';
 
@@ -10,6 +11,8 @@ import LoadingScreen from '@/components/全局组件/LoadingScreen.vue';
 const isLoading = ref(true);
 const mainContent = ref(null);
 const isMenuOpen = ref(false);
+const isMusicMenuOpen = ref(false);
+const isPlaying = ref(false);
 
 // 预加载
 onMounted(() => {
@@ -63,6 +66,12 @@ watch(() => isLoading.value, (newValue) => {
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
+const toggleMusicMenu = () => {
+  isMusicMenuOpen.value = !isMusicMenuOpen.value
+}
+const playMusic = async () => {
+  isPlaying.value = !isPlaying.value;
+};
 
 </script>
 
@@ -72,7 +81,7 @@ const toggleMenu = () => {
 
   <!-- 主应用内容 -->
   <div ref="mainContent" :class="{ 'invisible': isLoading, 'visible': !isLoading }" class="transition-all duration-500">
-    <navbar @toggle-mobile-menu="toggleMenu" />
+    <navbar @toggle-mobile-menu="toggleMenu" @play-music="playMusic" @open-music-menu="toggleMusicMenu" />
     <main class="min-h-screen bg-site-background">
       <router-view v-slot="{ Component }">
         <transition name="page" mode="out-in">
@@ -83,6 +92,7 @@ const toggleMenu = () => {
     <img src="@/assets/wave.svg" class="bg-site-background " />
     <fool />
     <phoneMenu :visible="isMenuOpen" :onClose="() => (isMenuOpen = false)" />
+    <musicMenu :visible="isMusicMenuOpen" :playMusic="isPlaying" />
   </div>
 </template>
 

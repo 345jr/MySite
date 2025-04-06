@@ -104,7 +104,7 @@ onMounted(() => {
       </div>
     </section>
 
-    <!-- 三个新组件部分 - 支持移动端轮播 -->
+    <!-- 公告牌 -->
     <div class="w-full max-w-6xl mb-5 sm:mx-auto px-4 lg:ml-30">
       <!-- 移动端导航按钮 -->
       <div class="md:hidden flex justify-between items-center mb-4 border-blue-300 border-2 rounded-l rounded-r">
