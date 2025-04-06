@@ -122,14 +122,12 @@ const closeDetails = () => {
 </template>
 
 <style scoped>
-/* 只保留必要的局部样式 */
-.fade-enter-active,
-.fade-leave-active {
+
+
+.fade-enter-active,.fade-leave-active {
   transition: opacity 0.3s ease;
 }
-
-.fade-enter-from,
-.fade-leave-to {
+.fade-enter-from,.fade-leave-to {
   opacity: 0;
 }
 </style>

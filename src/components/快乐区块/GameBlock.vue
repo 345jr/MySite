@@ -167,7 +167,6 @@ onMounted(() => {
     ease: "back.out(1.7)"
   });
 
-  // 尝试从API获取留言，如果失败则使用本地数据
   fetchRandomMessage();
 });
 </script>
@@ -186,7 +185,7 @@ onMounted(() => {
 
       <div class="p-3 md:p-4 flex flex-col items-center bg-[#2a6fc9]">
         <div ref="adviceText"
-          class="text-white text-center mb-5 leading-relaxed px-3 py-2 bg-[#3d8ae5] rounded border-2 border-[#0a2e57] min-h-[80px] md:min-h-[100px] w-full flex items-center justify-center text-sm md:text-base">
+          class=" text-white text-center mb-5 leading-relaxed px-3 py-2 bg-[#3d8ae5] rounded border-2 border-[#0a2e57] min-h-[80px] md:min-h-[100px] w-full flex items-center justify-center text-sm md:text-base">
           "{{ currentAdvice }}"
         </div>
 
@@ -213,7 +212,8 @@ onMounted(() => {
     </div>
 
     <!-- 留言对话框 -->
-    <div v-if="showMessageDialog" class="fixed inset-0  flex items-center justify-center z-50 p-4">
+    <div v-if="showMessageDialog" class="fixed inset-0 flex items-center justify-center z-40 p-4 bg-black/30 backdrop-blur-sm">
+
       <div class="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden">
         <div class="bg-[#1a4b8c] text-white px-4 py-3 flex justify-between items-center">
           <h3 class="font-bold">添加新留言</h3>

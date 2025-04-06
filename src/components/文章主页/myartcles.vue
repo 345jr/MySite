@@ -20,7 +20,7 @@ const props = defineProps({
         <div class="p-4 flex-1 flex flex-col">
           <h3 class="text-lg font-bold text-gray-800">{{ idea.title }}</h3>
           <p class="text-sm text-gray-500 mt-1 flex-1">{{ idea.summary }}</p>
-          <p class="pi pi-calendar-clock text-sm text-gray-600 mt-2">{{ idea.time }}</p>          
+          <p class="pi pi-calendar-clock text-sm text-gray-600 mt-2">{{ idea.time }}</p>
         </div>
       </div>
 

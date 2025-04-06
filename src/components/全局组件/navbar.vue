@@ -2,53 +2,16 @@
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { ref, watch, nextTick, onMounted } from "vue";
+import { ref,onMounted } from "vue";
 import { gsap } from "gsap";
 import axios from "axios";
 
 const route = useRoute();
 const router = useRouter();
-const isMenuOpen = ref(false);
-const menuRef = ref(null);
-const openMenu = ref(false);
-
 const isActive = (routePath) => route.path === routePath;
-
 const navigate = (path) => {
   router.push(path);
-  isMenuOpen.value = false;
 };
-
-const toggleMenu = () => {
-  if (isMenuOpen.value) {
-    gsap.to(menuRef.value, {
-      x: 300,
-      y:-300,
-      opacity: 0,
-      duration: 0.5,
-      ease: "power2.out",
-      onComplete: () => (isMenuOpen.value = false),
-    });
-  } else {
-    isMenuOpen.value = !isMenuOpen.value;
-    openMenu.value = !openMenu.value;
-  }
-};
-
-// 监听菜单状态变化，添加动画
-watch(isMenuOpen, async (newValue, oldValue) => {
-  await nextTick();
-  // console.log(newValue + " | " + menuRef.value);
-
-  if (newValue && menuRef.value) {
-    // 菜单打开动画
-    gsap.fromTo(
-      menuRef.value,
-      { y:-300, x:300 ,opacity: 0 },
-      { y:0, x:0 ,opacity: 1, duration: 0.5, ease: "power2.out" }
-    );
-  }
-});
 
 // 新增音乐播放器相关逻辑
 const isMusicOpen = ref(false);
@@ -117,6 +80,7 @@ const togglePlay = async () => {
     isPlaying.value = false;
   }
 };
+
 // 格式化歌名
 const formatSongName = (song) => {
   return song.replace(/^music\//, "").replace(/\.(mp3|flac|wav|ogg|mp4)$/, "");
@@ -135,13 +99,16 @@ const toggleMusicMenu = () => {
   }
 };
 
+const emit = defineEmits(['toggle-mobile-menu']);
+
 onMounted(() => {
   fetchSongs();
 });
+
 </script>
 
 <template>
-  <nav class="w-full bg-white/80 backdrop-blur-md shadow-md p-4 flex justify-between items-center z-20"> <!-- 网站标题 -->
+  <nav class="w-full bg-white/80 backdrop-blur-md shadow-md p-4 flex justify-between items-center z-50"> <!-- 网站标题 -->
     <div class="hidden lg:block">
       <h1 class="text-4xl font-bold ml-24">
         <span class="text-blue-300">Lo</span><span class="text-black">pop</span>
@@ -149,7 +116,7 @@ onMounted(() => {
     </div>
 
     <!-- 移动端菜单按钮 -->
-    <button @click="toggleMenu" class="lg:hidden text-gray-700">
+    <button @click="emit('toggle-mobile-menu')" class="lg:hidden text-gray-700">
       <i class="pi pi-bars text-xl"></i>
     </button>
 
@@ -220,56 +187,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-
-    <!-- 移动端导航菜单 -->
-    <div v-show="isMenuOpen" class="fixed inset-0 z-50  lg:hidden" @click="toggleMenu">
-      <div ref="menuRef" class="absolute right-0 top-0  w-64 bg-pink-500 shadow-lg " @click.stop>
-        <div class="flex justify-end p-4">
-          <button @click="toggleMenu" class="text-gray-700">
-            <i class="pi pi-times text-xl"></i>
-          </button>
-        </div>
-        <div class="flex flex-col p-4 space-y-2 bg-white   ">
-          <button @click="navigate('/')" :class="{
-            'text-blue-600 font-bold': isActive('/'),
-            'text-gray-700': !isActive('/'),
-          }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left border-t border-gray-200">
-            文章主页
-          </button>
-          <button @click="navigate('/about')" :class="{
-            'text-blue-600 font-bold': isActive('/about'),
-            'text-gray-700': !isActive('/about'),
-          }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
-            个人介绍
-          </button>
-          <button @click="navigate('/work')" :class="{
-            'text-blue-600 font-bold': isActive('/work'),
-            'text-gray-700': !isActive('/work'),
-          }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
-            我的作品
-          </button>
-          <button @click="navigate('/daily')" :class="{
-            'text-blue-600 font-bold': isActive('/daily'),
-            'text-gray-700': !isActive('/daily'),
-          }" class="px-4 py-3 rounded-md hover:bg-gray-100 text-left">
-            日常活动
-          </button>
-          <!-- 优化后的移动端音乐播放器 -->
-          <div class="p-4 border-t border-gray-200">
-            <div class="flex items-center space-x-2 mb-2">
-              <button @click="togglePlay" class="p-2 rounded-full hover:bg-gray-100">
-                <i :class="isPlaying ? 'pi pi-pause' : 'pi pi-play'" class="text-blue-500"></i>
-              </button>
-              <span class="text-sm text-gray-600">当前:
-                {{ currentSong ? formatSongName(currentSong) : "无" }}</span>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
   </nav>
-
   <!-- 隐藏的音频元素 -->
   <audio ref="audioPlayer" v-if="currentSong" :src="`https://music.lopop.top/api/bgm?name=${currentSong}`"></audio>
 </template>
