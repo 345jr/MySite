@@ -13,6 +13,7 @@ const mainContent = ref(null);
 const isMenuOpen = ref(false);
 const isMusicMenuOpen = ref(false);
 const isPlaying = ref(false);
+const selectSong =ref(null);
 
 // 预加载
 onMounted(() => {
@@ -73,6 +74,13 @@ const playMusic = async () => {
   isPlaying.value = !isPlaying.value;
 };
 
+const handleSelectSong = async (song) => {
+  selectSong.value = song;
+};
+
+const handleIsPlay = async() => {
+    isPlaying.value = !isPlaying.value;
+};
 </script>
 
 <template>
@@ -81,7 +89,7 @@ const playMusic = async () => {
 
   <!-- 主应用内容 -->
   <div ref="mainContent" :class="{ 'invisible': isLoading, 'visible': !isLoading }" class="transition-all duration-500">
-    <navbar @toggle-mobile-menu="toggleMenu" @play-music="playMusic" @open-music-menu="toggleMusicMenu" />
+    <navbar @toggle-mobile-menu="toggleMenu" @play-music="playMusic" @open-music-menu="toggleMusicMenu" :isPlay="isPlaying" :song="selectSong" />
     <main class="min-h-screen bg-site-background">
       <router-view v-slot="{ Component }">
         <transition name="page" mode="out-in">
@@ -92,7 +100,7 @@ const playMusic = async () => {
     <img src="@/assets/wave.svg" class="bg-site-background " />
     <fool />
     <phoneMenu :visible="isMenuOpen" :onClose="() => (isMenuOpen = false)" />
-    <musicMenu :visible="isMusicMenuOpen" :playMusic="isPlaying" />
+    <musicMenu :visible="isMusicMenuOpen" :playMusic="isPlaying" @select-song="handleSelectSong"  @is-play="handleIsPlay"/>
   </div>
 </template>
 
