@@ -13,7 +13,7 @@ const props = defineProps({
     class="block h-full transform duration-300 hover:scale-[1.05]"
   >
     <div
-      class="flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:border hover:border-blue-200 hover:bg-blue-50 hover:shadow-lg"
+      class="flex h-full cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 big-card-hover"
     >
       <!-- 大屏幕布局 -->
       <div class="hidden h-full sm:flex sm:flex-col">
@@ -58,3 +58,10 @@ const props = defineProps({
     </div>
   </RouterLink>
 </template>
+
+<style scoped>
+@reference '@/assets/tailwind.css';
+.big-card-hover {
+  @apply hover:border hover:border-blue-200 hover:bg-blue-50 hover:shadow-lg ;
+}
+</style>
