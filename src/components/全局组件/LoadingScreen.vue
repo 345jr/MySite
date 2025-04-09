@@ -1,19 +1,19 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { gsap } from 'gsap';
+import { ref, onMounted, watch } from "vue";
+import { gsap } from "gsap";
 
 const props = defineProps({
   isLoading: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 });
 
-const loadingText = ref('欢迎来到我的世界');
+const loadingText = ref("欢迎来到我的世界");
 const loadingProgress = ref(0);
 const loadingContainer = ref(null);
 const logoElements = ref(null);
-const isVisible = ref(true); 
+const isVisible = ref(true);
 
 // 加载文字动画效果
 onMounted(() => {
@@ -21,63 +21,81 @@ onMounted(() => {
   gsap.to(loadingProgress, {
     value: 100,
     duration: 2.5,
-    ease: "power2.inOut"
+    ease: "power2.inOut",
   });
 
   // Logo动画
   if (logoElements.value) {
-    const elements = logoElements.value.querySelectorAll('.logo-element');
-    gsap.fromTo(elements, 
+    const elements = logoElements.value.querySelectorAll(".logo-element");
+    gsap.fromTo(
+      elements,
       { y: 20, opacity: 0 },
-      { 
-        y: 0, 
-        opacity: 1, 
-        stagger: 0.1, 
+      {
+        y: 0,
+        opacity: 1,
+        stagger: 0.1,
         duration: 0.8,
         ease: "back.out(1.7)",
         repeat: -1,
         yoyo: true,
-        repeatDelay: 0.5
-      }
+        repeatDelay: 0.5,
+      },
     );
   }
 });
 
 // 监听加载状态变化退出动画
-watch(() => props.isLoading, (newValue) => {
-  if (!newValue && loadingContainer.value) {
-    gsap.to(loadingContainer.value, {
-      opacity: 0,
-      y: -50,
-      duration: 1.5,
-      ease: "power3.out",
-      onComplete: () => {
-        isVisible.value = false;
-      }
-    });
-  }
-}, { immediate: true });
+watch(
+  () => props.isLoading,
+  (newValue) => {
+    if (!newValue && loadingContainer.value) {
+      gsap.to(loadingContainer.value, {
+        opacity: 0,
+        y: -50,
+        duration: 1.5,
+        ease: "power3.out",
+        onComplete: () => {
+          isVisible.value = false;
+        },
+      });
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
-  <div v-show="isLoading || isVisible" ref="loadingContainer" class="loading-screen">
+  <div
+    v-show="isLoading || isVisible"
+    ref="loadingContainer"
+    class="loading-screen"
+  >
     <div class="loading-content">
       <!-- 自定义Logo动画 -->
       <div ref="logoElements" class="logo-animation">
-        <span class="logo-element text-blue-500"><i class="pi pi-book text-4xl"></i></span>
-        <span class="logo-element text-blue-600"><i class="pi pi-code text-4xl"></i></span>
-        <span class="logo-element text-blue-700"><i class="pi pi-heart text-4xl"></i></span>
+        <span class="logo-element text-blue-500"
+          ><i class="pi pi-book text-4xl"></i
+        ></span>
+        <span class="logo-element text-blue-600"
+          ><i class="pi pi-code text-4xl"></i
+        ></span>
+        <span class="logo-element text-blue-700"
+          ><i class="pi pi-heart text-4xl"></i
+        ></span>
       </div>
-      
+
       <h2 class="site-name">Lopop个人博客</h2>
       <p class="loading-text">{{ loadingText }}</p>
-      
+
       <!-- 进度条 -->
       <div class="progress-container">
-        <div class="progress-bar" :style="{ width: `${loadingProgress}%` }"></div>
+        <div
+          class="progress-bar"
+          :style="{ width: `${loadingProgress}%` }"
+        ></div>
       </div>
     </div>
-    
+
     <!-- 底部波浪效果 -->
     <div class="wave-container">
       <div class="wave wave1"></div>
@@ -172,7 +190,8 @@ watch(() => props.isLoading, (newValue) => {
   left: 0;
   width: 200%;
   height: 100%;
-  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18.17 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 52.47V0z" fill="%233b82f6" opacity=".25"/></svg>') repeat-x;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18.17 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 52.47V0z" fill="%233b82f6" opacity=".25"/></svg>')
+    repeat-x;
   background-size: 1200px 100%;
   animation: wave 15s linear infinite;
 }
@@ -207,7 +226,7 @@ watch(() => props.isLoading, (newValue) => {
   .site-name {
     font-size: 2rem;
   }
-  
+
   .progress-container {
     width: 200px;
   }

@@ -1,14 +1,18 @@
 <!-- 404页面 -->
 
 <script setup>
-import { RouterLink } from 'vue-router';
+import { RouterLink } from "vue-router";
 </script>
 
 <template>
-    <section class="text-center flex flex-col justify-center items-center h-96">
-        <i class="pi pi-exclamation-triangle text-yellow-500 text-7xl mb-5"></i>
-        <h1 class="text-6xl font-bold mb-4">404</h1>
-        <p class="text-xl mb-5">该页面不存在</p>
-        <RouterLink to="/" class="text-white bg-green-700 hover:bg-green-900 rounded-md px-3 py-2 mt-4">返回</RouterLink>
-    </section>
+  <section class="flex h-96 flex-col items-center justify-center text-center">
+    <i class="pi pi-exclamation-triangle mb-5 text-7xl text-yellow-500"></i>
+    <h1 class="mb-4 text-6xl font-bold">404</h1>
+    <p class="mb-5 text-xl">该页面不存在</p>
+    <RouterLink
+      to="/"
+      class="mt-4 rounded-md bg-green-700 px-3 py-2 text-white hover:bg-green-900"
+      >返回</RouterLink
+    >
+  </section>
 </template>

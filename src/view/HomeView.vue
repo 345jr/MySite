@@ -9,13 +9,13 @@ import GameBlock from "../components/快乐区块/GameBlock.vue";
 <template>
   <div class="w-full">
     <!-- 手机端显示的谏言区块 -->
-    <div class="block lg:hidden mb-4">
+    <div class="mb-4 block lg:hidden">
       <GameBlock />
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-1">
+    <div class="flex flex-col gap-1 lg:flex-row">
       <!-- 左侧文章列表 -->
-      <div class="md:w-4/5 ">
+      <div class="md:w-4/5">
         <MyList />
       </div>
 
@@ -23,8 +23,8 @@ import GameBlock from "../components/快乐区块/GameBlock.vue";
       <div class="w-1/5">
         <div class="hidden lg:block">
           <About />
-           <!-- 电脑端显示的谏言区块 -->
-           <div class="mt-6">
+          <!-- 电脑端显示的谏言区块 -->
+          <div class="mt-6">
             <GameBlock />
           </div>
         </div>

@@ -32,7 +32,7 @@ onMounted(() => {
         yoyo: true,
         ease: "sine.inOut",
         delay: index * 0.1,
-      }
+      },
     );
   });
 });
@@ -43,7 +43,7 @@ const showDetails = (project) => {
   gsap.fromTo(
     ".detail-card",
     { scale: 0, opacity: 0 },
-    { scale: 1, opacity: 1, duration: 0.5, ease: "back.out" }
+    { scale: 1, opacity: 1, duration: 0.5, ease: "back.out" },
   );
 };
 
@@ -60,13 +60,16 @@ const closeDetails = () => {
 
 <template>
   <section
-    class="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 flex items-center justify-center overflow-hidden"
+    class="flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900"
   >
     <!-- 中心头像 -->
-    <div class="absolute z-10" :style="{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }">
+    <div
+      class="absolute z-10"
+      :style="{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }"
+    >
       <img
         src="https://asset.lopop.top/public/other-images/avatar.webp"
-        class="w-24 h-24 rounded-full border-4 border-white shadow-2xl object-cover transform hover:scale-110 transition-transform duration-300"
+        class="h-24 w-24 transform rounded-full border-4 border-white object-cover shadow-2xl transition-transform duration-300 hover:scale-110"
         alt="Avatar"
       />
     </div>
@@ -77,14 +80,14 @@ const closeDetails = () => {
       :key="project.id"
       ref="bubbles"
       :class="[
-        'absolute bubble w-28 h-28 rounded-full backdrop-blur-md flex items-center justify-center cursor-pointer transform hover:scale-110 transition-transform duration-300',
+        'bubble absolute flex h-28 w-28 transform cursor-pointer items-center justify-center rounded-full backdrop-blur-md transition-transform duration-300 hover:scale-110',
         bubbleColors[index % bubbleColors.length],
       ]"
       :style="{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }"
       @click="showDetails(project)"
     >
       <div class="text-center text-white">
-        <h3 class="text-sm font-semibold truncate px-2">{{ project.name }}</h3>
+        <h3 class="truncate px-2 text-sm font-semibold">{{ project.name }}</h3>
         <p class="text-xs opacity-75">{{ project.date }}</p>
       </div>
     </div>
@@ -93,7 +96,7 @@ const closeDetails = () => {
     <transition name="fade">
       <div
         v-if="selectedProject"
-        class="detail-card fixed z-20 bg-white/95 backdrop-blur-lg rounded-xl p-6 shadow-2xl max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        class="detail-card fixed top-1/2 left-1/2 z-20 max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white/95 p-6 shadow-2xl backdrop-blur-lg"
       >
         <button
           @click="closeDetails"
@@ -122,10 +125,12 @@ const closeDetails = () => {
 </template>
 
 <style scoped>
-.fade-enter-active,.fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.3s ease;
 }
-.fade-enter-from,.fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

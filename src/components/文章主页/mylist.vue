@@ -10,7 +10,9 @@ import tasksData from "@/data/tasks.json";
 import { ref, onMounted, computed } from "vue";
 import { gsap } from "gsap";
 
-const MyIdeas = ref(artcleData);
+const MyIdeas = ref(
+  [...artcleData].sort((a, b) => new Date(b.uptime) - new Date(a.uptime)),
+);
 const Mylove1 = ref(gamesData);
 const Mylove2 = ref(musicData);
 const Mylove3 = ref(tasksData);
@@ -86,38 +88,48 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center space-y-2 ">
-    <!-- 文章列表部分 -->
-    <section class=" w-full px-6 py-8 lg:px-8 lg:mr-30">
-      <div class="w-full sm:max-w-4xl mx-auto">
-        <h2 class="text-2xl lg:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
-          <i class="pi pi-bookmark mr-2"></i>
-          文章列表
-          <i class="pi pi-bookmark mr-2"></i>
-          <span class="block h-1 w-20 bg-blue-300 mx-auto mt-2 rounded-full"></span>
-        </h2>
-        <div
-          class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 "
-        >
-          <ArticleCard v-for="idea in MyIdeas" :key="idea.id" :idea="idea" />
+  <div class="flex flex-col items-center space-y-2">
+    <div class="felx flex-row">
+      <!-- 文章列表部分 -->
+      <section class="w-full px-6 py-8 lg:px-8">
+        <div class="mx-auto w-full sm:max-w-4xl">
+          <h2
+            class="mb-10 bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-center text-2xl font-bold text-transparent lg:text-4xl"
+          >
+            <i class="pi pi-bookmark mr-2"></i>
+            文章列表
+            <i class="pi pi-bookmark mr-2"></i>
+            <span
+              class="mx-auto mt-2 block h-1 w-20 rounded-full bg-blue-300"
+            ></span>
+          </h2>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+            <ArticleCard
+              v-for="idea in MyIdeas.slice(0, 6)"
+              :key="idea.id"
+              :idea="idea"
+            />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <!-- 公告牌 -->
-    <div class="w-full max-w-6xl mb-5 sm:mx-auto px-4 lg:ml-30">
+    <div class="mb-5 w-full max-w-6xl px-4 sm:mx-auto">
       <!-- 移动端导航按钮 -->
-      <div class="md:hidden flex justify-between items-center mb-4 border-blue-300 border-2 rounded-l rounded-r">
-        <button 
-          @click="prevCard" 
-          class="bg-blue-300 text-gray-800 font-bold py-2 px-4 "
+      <div
+        class="mb-4 flex items-center justify-between rounded-l rounded-r border-2 border-blue-300 md:hidden"
+      >
+        <button
+          @click="prevCard"
+          class="bg-blue-300 px-4 py-2 font-bold text-gray-800"
         >
           <i class="pi pi-chevron-left"></i>
         </button>
-        <h3 class="text-lg font-bold  ">{{ currentTitle }}</h3>
-        <button 
-          @click="nextCard" 
-          class="bg-blue-300 text-gray-800 font-bold py-2 px-4 "
+        <h3 class="text-lg font-bold">{{ currentTitle }}</h3>
+        <button
+          @click="nextCard"
+          class="bg-blue-300 px-4 py-2 font-bold text-gray-800"
         >
           <i class="pi pi-chevron-right"></i>
         </button>
@@ -126,17 +138,17 @@ onMounted(() => {
       <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
         <!-- 游戏列表 -->
         <div
-          class="border-2 border-pink-200 rounded-lg overflow-hidden h-full flex flex-col"
-          :class="{'hidden md:flex': currentCardIndex !== 0}"
+          class="flex h-full flex-col overflow-hidden rounded-lg border-2 border-pink-200"
+          :class="{ 'hidden md:flex': currentCardIndex !== 0 }"
         >
           <div ref="gamesCard">
             <BottomList title="BEST游戏" :items="Mylove1">
               <template #card="{ items }">
                 <div
-                  class="bg-red-50 rounded-lg shadow-md p-3 w-full flex-grow flex flex-col min-h-[215px]"
+                  class="flex min-h-[215px] w-full flex-grow flex-col rounded-lg bg-red-50 p-3 shadow-md"
                 >
                   <h2
-                    class="text-xl font-bold mb-4 flex items-center text-red-700"
+                    class="mb-4 flex items-center text-xl font-bold text-red-700"
                   >
                     <i class="pi pi-thumbs-up mr-2"></i>
                     BEST游戏
@@ -145,7 +157,7 @@ onMounted(() => {
                     <li
                       v-for="item in items"
                       :key="item.id"
-                      class="mb-2 p-2 border-b last:border-b-0"
+                      class="mb-2 border-b p-2 last:border-b-0"
                     >
                       <strong>{{ item.title }}</strong
                       >: {{ item.description }}
@@ -159,17 +171,17 @@ onMounted(() => {
 
         <!-- 音乐列表 -->
         <div
-          class="border-2 border-pink-200 rounded-lg overflow-hidden h-full flex flex-col"
-          :class="{'hidden md:flex': currentCardIndex !== 1}"
+          class="flex h-full flex-col overflow-hidden rounded-lg border-2 border-pink-200"
+          :class="{ 'hidden md:flex': currentCardIndex !== 1 }"
         >
           <div ref="musicsCard">
             <BottomList title="BEST游戏OST" :items="Mylove2">
               <template #card="{ items }">
                 <div
-                  class="bg-green-50 rounded-lg shadow-md p-3 w-full flex-grow flex flex-col min-h-[215px]"
+                  class="flex min-h-[215px] w-full flex-grow flex-col rounded-lg bg-green-50 p-3 shadow-md"
                 >
                   <h2
-                    class="text-xl font-bold mb-4 flex items-center text-green-700"
+                    class="mb-4 flex items-center text-xl font-bold text-green-700"
                   >
                     <i class="pi pi-volume-up mr-2"></i>
                     BEST游戏OST
@@ -178,7 +190,7 @@ onMounted(() => {
                     <li
                       v-for="item in items"
                       :key="item.id"
-                      class="mb-2 p-2 border-b last:border-b-0"
+                      class="mb-2 border-b p-2 last:border-b-0"
                     >
                       <strong>{{ item.title }}</strong
                       >: {{ item.description }}
@@ -192,17 +204,17 @@ onMounted(() => {
 
         <!-- 待办事项列表 -->
         <div
-          class="border-2 border-pink-200 rounded-lg overflow-hidden h-full flex flex-col"
-          :class="{'hidden md:flex': currentCardIndex !== 2}"
+          class="flex h-full flex-col overflow-hidden rounded-lg border-2 border-pink-200"
+          :class="{ 'hidden md:flex': currentCardIndex !== 2 }"
         >
           <div ref="tasksCard">
             <BottomList title="待办事项" :items="Mylove3">
               <template #card="{ items }">
                 <div
-                  class="bg-blue-50 rounded-lg shadow-md p-3 w-full flex-grow flex flex-col min-h-[215px]"
+                  class="flex min-h-[215px] w-full flex-grow flex-col rounded-lg bg-blue-50 p-3 shadow-md"
                 >
                   <h2
-                    class="text-xl font-bold mb-4 flex items-center text-blue-700"
+                    class="mb-4 flex items-center text-xl font-bold text-blue-700"
                   >
                     <i class="pi pi-check-square mr-2"></i>
                     待办事项
@@ -211,7 +223,7 @@ onMounted(() => {
                     <li
                       v-for="item in items"
                       :key="item.id"
-                      class="mb-1 p-2 border-b last:border-b-0"
+                      class="mb-1 border-b p-2 last:border-b-0"
                     >
                       <strong>{{ item.title }}</strong
                       >: {{ item.description }}
@@ -227,6 +239,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

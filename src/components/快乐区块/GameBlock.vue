@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
-import { gsap } from 'gsap';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css'
+import { ref, onMounted, reactive } from "vue";
+import { gsap } from "gsap";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 const currentAdvice = ref("");
 const adviceText = ref(null);
@@ -11,32 +11,31 @@ const likeCount = ref(0);
 const hasLiked = ref(false);
 const showMessageDialog = ref(false);
 
-
 // 留言表单状态
 const messageForm = reactive({
-  content: '',
+  content: "",
   submitting: false,
-  error: ''
+  error: "",
 });
 
 // 从API获取随机留言
 const fetchRandomMessage = async () => {
   try {
-    const response = await fetch('https://msg.lopop.top/api/messages/random');
-    if (!response.ok) throw new Error('获取留言失败');
+    const response = await fetch("https://msg.lopop.top/api/messages/random");
+    if (!response.ok) throw new Error("获取留言失败");
 
     const data = await response.json();
     currentAdvice.value = data.content;
     currentMessageId.value = data.id;
     likeCount.value = data.likes;
     // 重置点赞状态
-    hasLiked.value = false; 
+    hasLiked.value = false;
 
     // 使用GSAP实现淡出动画
     animateAdviceChange();
   } catch (error) {
-    console.error('获取随机留言失败:', error);
-    currentAdvice.value = '获取谏言失败了欸ovo';
+    console.error("获取随机留言失败:", error);
+    currentAdvice.value = "获取谏言失败了欸ovo";
   }
 };
 
@@ -50,16 +49,17 @@ const animateAdviceChange = (callback = null) => {
     onComplete: () => {
       if (callback) callback();
       // 淡入新谏言
-      gsap.fromTo(adviceText.value,
+      gsap.fromTo(
+        adviceText.value,
         { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
           duration: 0.5,
-          ease: "power3.out"
-        }
+          ease: "power3.out",
+        },
       );
-    }
+    },
   });
 };
 
@@ -68,71 +68,75 @@ const likeMessage = async () => {
   if (hasLiked.value || !currentMessageId.value) return;
 
   try {
-    const response = await fetch(`https://msg.lopop.top/api/messages/${currentMessageId.value}/like`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const response = await fetch(
+      `https://msg.lopop.top/api/messages/${currentMessageId.value}/like`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
-    if (!response.ok) throw new Error('点赞失败');
+    if (!response.ok) throw new Error("点赞失败");
 
     const data = await response.json();
     likeCount.value = data.likes;
     hasLiked.value = true;
 
     // 点赞成功动画
-    gsap.fromTo(".like-button",
+    gsap.fromTo(
+      ".like-button",
       { scale: 1 },
-      { scale: 1.3, duration: 0.2, yoyo: true, repeat: 1 }
+      { scale: 1.3, duration: 0.2, yoyo: true, repeat: 1 },
     );
     SuccessLikeNotify();
   } catch (error) {
-    console.error('点赞失败:', error);
+    console.error("点赞失败:", error);
   }
 };
 
 // 提交留言
 const submitMessage = async () => {
-  messageForm.error = '';
+  messageForm.error = "";
   messageForm.submitting = true;
 
   if (messageForm.content.length < 4) {
-    messageForm.error = '留言内容至少需要4个字符';
+    messageForm.error = "留言内容至少需要4个字符";
     messageForm.submitting = false;
     return;
   }
 
   if (messageForm.content.length > 100) {
-    messageForm.error = '留言内容不能超过100个字符';
+    messageForm.error = "留言内容不能超过100个字符";
     messageForm.submitting = false;
     return;
   }
 
   try {
-    const response = await fetch('https://msg.lopop.top/api/messages', {
-      method: 'POST',
+    const response = await fetch("https://msg.lopop.top/api/messages", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        content: messageForm.content
-      })
+        content: messageForm.content,
+      }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(errorText || '提交留言失败');
+      throw new Error(errorText || "提交留言失败");
     }
 
     // 提交成功，关闭对话框并清空内容
     showMessageDialog.value = false;
-    messageForm.content = '';
+    messageForm.content = "";
     SuccessNotify();
   } catch (error) {
-    messageForm.error = '提交留言失败，请稍后再试';
+    messageForm.error = "提交留言失败，请稍后再试";
     ErrorNotify();
-    console.error('提交留言失败:', error);
+    console.error("提交留言失败:", error);
   } finally {
     messageForm.submitting = false;
   }
@@ -141,70 +145,82 @@ const submitMessage = async () => {
 const SuccessNotify = () => {
   toast.success("提交成功 !", {
     autoClose: 3000,
-    position: toast.POSITION.TOP_RIGHT
+    position: toast.POSITION.TOP_RIGHT,
   });
-}
+};
 const ErrorNotify = () => {
   toast.error("提交失败 !", {
     autoClose: 3000,
-    position: toast.POSITION.TOP_RIGHT
+    position: toast.POSITION.TOP_RIGHT,
   });
-}
+};
 const SuccessLikeNotify = () => {
-    toast.success("点赞成功!", {
-      autoClose: 3000,
-      position: toast.POSITION.TOP_RIGHT
-    });
-  }
-
+  toast.success("点赞成功!", {
+    autoClose: 3000,
+    position: toast.POSITION.TOP_RIGHT,
+  });
+};
 
 onMounted(() => {
-  // 初始加载动画
-  gsap.from(".game-window", {
-    opacity: 0,
-    y: 30,
-    duration: 0.8,
-    ease: "back.out(1.7)"
-  });
-
   fetchRandomMessage();
 });
 </script>
 
 <template>
   <div class="w-full p-2 md:p-3">
-    <div class=" bg-[#1a4b8c] border-4 border-[#0d3a6e] rounded-lg shadow-lg shadow-blue-500/50 overflow-hidden">
-      <div class="bg-[#1a4b8c] text-white px-3 py-2 flex justify-between items-center border-b-2 border-[#0a2e57]">
+    <div
+      class="overflow-hidden rounded-lg border-4 border-[#0d3a6e] bg-[#1a4b8c] shadow-lg shadow-blue-500/50"
+    >
+      <div
+        class="flex items-center justify-between border-b-2 border-[#0a2e57] bg-[#1a4b8c] px-3 py-2 text-white"
+      >
         <span class="tracking-wider">每日谏言</span>
         <div class="flex items-center gap-2">
-          <span v-if="currentMessageId" class="text-xs flex items-center">
-            <i class="pi pi-heart-fill text-red-400 mr-1"></i>{{ likeCount }}
+          <span v-if="currentMessageId" class="flex items-center text-xs">
+            <i class="pi pi-heart-fill mr-1 text-red-400"></i>{{ likeCount }}
           </span>
         </div>
       </div>
 
-      <div class="p-3 md:p-4 flex flex-col items-center bg-[#2a6fc9]">
-        <div ref="adviceText"
-          class=" text-white text-center mb-5 leading-relaxed px-3 py-2 bg-[#3d8ae5] rounded border-2 border-[#0a2e57] min-h-[80px] md:min-h-[100px] w-full flex items-center justify-center text-sm md:text-base">
+      <div class="flex flex-col items-center bg-[#2a6fc9] p-3 md:p-4">
+        <div
+          ref="adviceText"
+          class="mb-5 flex min-h-[80px] w-full items-center justify-center rounded border-2 border-[#0a2e57] bg-[#3d8ae5] px-3 py-2 text-center text-sm leading-relaxed text-white md:min-h-[100px] md:text-base"
+        >
           "{{ currentAdvice }}"
         </div>
 
-        <div class="flex gap-2 w-full justify-center">
-          <button @click="fetchRandomMessage"
-            class="bg-[#ff6b6b] text-white px-4 py-2 rounded font-bold border-b-4 border-[#d45555] hover:bg-[#d45555] active:translate-y-1 active:border-b-0 transition-all duration-100 text-sm flex items-center">
+        <div class="flex w-full justify-center gap-2">
+          <button
+            @click="fetchRandomMessage"
+            class="flex items-center rounded border-b-4 border-[#d45555] bg-[#ff6b6b] px-4 py-2 text-sm font-bold text-white transition-all duration-100 hover:bg-[#d45555] active:translate-y-1 active:border-b-0"
+          >
             <i class="pi pi-refresh mr-1"></i> 换一条
           </button>
 
-          <button @click="likeMessage" :disabled="hasLiked || !currentMessageId" :class="[
-            'like-button text-white px-4 py-2 rounded font-bold border-b-4 active:translate-y-1 active:border-b-0 transition-all duration-100 text-sm flex items-center',
-            hasLiked ? 'bg-gray-400 border-gray-500 cursor-not-allowed' : 'bg-[#4CAF50] border-[#388E3C] hover:bg-[#388E3C]'
-          ]">
-            <i :class="['pi mr-1', hasLiked ? 'pi-heart-fill text-red-400' : 'pi-heart']"></i>
-            {{ hasLiked ? '已点赞' : '点赞' }}
+          <button
+            @click="likeMessage"
+            :disabled="hasLiked || !currentMessageId"
+            :class="[
+              'like-button flex items-center rounded border-b-4 px-4 py-2 text-sm font-bold text-white transition-all duration-100 active:translate-y-1 active:border-b-0',
+              hasLiked
+                ? 'cursor-not-allowed border-gray-500 bg-gray-400'
+                : 'border-[#388E3C] bg-[#4CAF50] hover:bg-[#388E3C]',
+            ]"
+          >
+            <i
+              :class="[
+                'pi mr-1',
+                hasLiked ? 'pi-heart-fill text-red-400' : 'pi-heart',
+              ]"
+            ></i>
+            {{ hasLiked ? "已点赞" : "点赞" }}
           </button>
 
-          <button @click="showMessageDialog = true"
-            class="bg-[#2196F3] text-white px-4 py-2 rounded font-bold border-b-4 border-[#1565C0] hover:bg-[#1565C0] active:translate-y-1 active:border-b-0 transition-all duration-100 text-sm flex items-center">
+          <button
+            @click="showMessageDialog = true"
+            class="flex items-center rounded border-b-4 border-[#1565C0] bg-[#2196F3] px-4 py-2 text-sm font-bold text-white transition-all duration-100 hover:bg-[#1565C0] active:translate-y-1 active:border-b-0"
+          >
             <i class="pi pi-comment mr-1"></i> 留言
           </button>
         </div>
@@ -212,34 +228,59 @@ onMounted(() => {
     </div>
 
     <!-- 留言对话框 -->
-    <div v-if="showMessageDialog" class="fixed inset-0 flex items-center justify-center z-40 p-4 bg-black/30 backdrop-blur-sm">
-
-      <div class="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden">
-        <div class="bg-[#1a4b8c] text-white px-4 py-3 flex justify-between items-center">
+    <div
+      v-if="showMessageDialog"
+      class="fixed inset-0 z-40 flex items-center justify-center bg-black/30 p-4 backdrop-blur-sm"
+    >
+      <div
+        class="w-full max-w-md overflow-hidden rounded-lg bg-white shadow-xl"
+      >
+        <div
+          class="flex items-center justify-between bg-[#1a4b8c] px-4 py-3 text-white"
+        >
           <h3 class="font-bold">添加新留言</h3>
-          <button @click="showMessageDialog = false" class="text-white hover:text-gray-200">
+          <button
+            @click="showMessageDialog = false"
+            class="text-white hover:text-gray-200"
+          >
             <i class="pi pi-times"></i>
           </button>
         </div>
 
         <div class="p-4">
           <div class="mb-4">
-            <textarea v-model="messageForm.content"
-              class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
-              placeholder="请输入你的留言(4-100个字符)"></textarea>
-            <div v-if="messageForm.error" class="text-red-500 text-sm mt-1">{{ messageForm.error }}</div>
-            <div class="text-gray-500 text-xs mt-1 text-right">{{ messageForm.content.length }}/100</div>
+            <textarea
+              v-model="messageForm.content"
+              class="min-h-[100px] w-full rounded border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="请输入你的留言(4-100个字符)"
+            ></textarea>
+            <div v-if="messageForm.error" class="mt-1 text-sm text-red-500">
+              {{ messageForm.error }}
+            </div>
+            <div class="mt-1 text-right text-xs text-gray-500">
+              {{ messageForm.content.length }}/100
+            </div>
           </div>
 
           <div class="flex justify-end gap-2">
-            <button @click="showMessageDialog = false"
-              class="px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-100">
+            <button
+              @click="showMessageDialog = false"
+              class="rounded border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-100"
+            >
               取消
             </button>
-            <button @click="submitMessage" :disabled="messageForm.submitting"
-              class="px-4 py-2 bg-[#1a4b8c] text-white rounded hover:bg-[#0d3a6e] disabled:bg-gray-400 flex items-center">
-              <i v-if="messageForm.submitting" class="pi pi-spinner pi-spin mr-1"></i>
-              <span>{{ messageForm.submitting ? '提交中...' : '提交留言' }}</span>
+            <button
+              @click="submitMessage"
+              :disabled="messageForm.submitting"
+              class="flex items-center rounded bg-[#1a4b8c] px-4 py-2 text-white hover:bg-[#0d3a6e] disabled:bg-gray-400"
+            >
+              <i
+                v-if="messageForm.submitting"
+                class="pi pi-spinner pi-spin mr-1"
+              ></i>
+              <span>{{
+                messageForm.submitting ? "提交中..." : "提交留言"
+              }}</span>
             </button>
           </div>
         </div>
