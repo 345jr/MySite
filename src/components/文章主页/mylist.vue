@@ -134,7 +134,7 @@ function animateCardExit(callback) {
                 <p class="btn-text ">上页</p>
                 
               </button>
-              <div class="mt-3 block h-6 w-1 bg-gray-700 rounded-full "></div>
+              <div class="mt-3 block h-6 w-1 bg-sky-700 rounded-full "></div>
               <button @click="nextPage" :disabled="currentPage === totalPages"
                 class="btn-page">                
                 <p class="btn-text ">下页</p> 

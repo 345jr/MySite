@@ -40,7 +40,7 @@ watchEffect(async () => {
   </section>
 </template>
 
-<style scoped>
+<style >
 @reference '@/assets/tailwind.css';
 /* 文章详细页样式 */
 .time-text {
