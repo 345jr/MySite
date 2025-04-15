@@ -1,7 +1,7 @@
 <!-- 文章+我的喜爱组件 -->
 
 <script setup>
-import ArticleCard from "./myartcles.vue";
+import NoteCard from "./NoteCard.vue";
 import BottomList from "@/components/文章主页/BottomList.vue";
 import artcleData from "@/data/artcles_data.json";
 import gamesData from "@/data/games.json";
@@ -13,6 +13,7 @@ import { gsap } from "gsap";
 const MyIdeas = ref(
   [...artcleData].sort((a, b) => new Date(b.uptime) - new Date(a.uptime)),
 );
+
 const Mylove1 = ref(gamesData);
 const Mylove2 = ref(musicData);
 const Mylove3 = ref(tasksData);
@@ -100,7 +101,7 @@ const pagedIdeas = computed(() => {
 })
 
 function animateCardExit(callback) {
-  const cards = document.querySelectorAll('.article-card')
+  const cards = document.querySelectorAll('.note-card')
   gsap.to(cards, {
     opacity: 0,
     y: 20,
@@ -109,7 +110,7 @@ function animateCardExit(callback) {
       callback()
       nextTick(() => {
         gsap.fromTo(
-          '.article-card',
+          '.note-card',
           { opacity: 0, y: -20 },
           { opacity: 1, y: 0, duration: 0.3 }
         )
@@ -149,7 +150,7 @@ function animateCardExit(callback) {
               <p class="pi pi-circle-fill pl-2 pt-1 scale-150 text-cyan-400 animate-ping-slow drop-shadow-[0_0_6px_#22d3ee]"></p>
           </div>
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-            <ArticleCard v-for="idea in pagedIdeas" :key="idea.id" :idea="idea" class="article-card"/>
+            <NoteCard v-for="idea in pagedIdeas" :key="idea.id" :idea="idea" class="note-card"/>
           </div>
         </div>
       </section>

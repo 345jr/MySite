@@ -1,24 +1,36 @@
 <!-- 每一篇文章的详细页面 -->
-
 <script setup>
-import Data from "@/data/artcles_data.json";
 import { useRoute } from "vue-router";
-import { ref, shallowRef, watchEffect } from "vue";
+import { ref , onMounted, watch  } from "vue";
+import MarkdownIt from 'markdown-it'
 const router = useRoute();
-const articles = ref(Data);
-const article = articles.value[router.params.id];
-const mdComponent = shallowRef(null);
-const markdownFiles = import.meta.glob("@/mypage/*.md");
+const article = ref(null);
+const md = new MarkdownIt();
+const html = ref('');
 
-watchEffect(async () => {
-  const mdPath = `/src/mypage/${router.params.id}.md`;
-  if (markdownFiles[mdPath]) {
-    const module = await markdownFiles[mdPath]();
-    mdComponent.value = module.default;
-  } else {
-    mdComponent.value = null;
+article.value = data;
+html.value = md.render(data.content);
+const getArticle = async (id) => {
+  try {
+    const response = await fetch(`https://post.lopop.top/api/note/${id}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    article.value = data;
+    html.value = md.render(data.content);
+  } catch (error) {
+    console.error('获取文章数据失败:', error);
   }
-});
+};
+onMounted(
+  () => {
+    getArticle();
+  }
+);
+watch(() => router.params.id , (newid) =>{
+  if (newid) getArticle(newid);
+},{ immediate: true });
 </script>
 
 <template>
@@ -31,10 +43,9 @@ watchEffect(async () => {
       </div>
 
       <div class="markdown-content">
-        <component :is="mdComponent" v-if="mdComponent" />
-        <p v-else class="mt-6 text-center text-gray-500">
-          文章内容加载中请稍等...
-        </p>
+        <div class="prose prose-sm md:prose-base" v-html="html"></div>
+        <div v-if="!article">加载中...</div>
+        <div v-else>...</div>
       </div>
     </div>
   </section>
