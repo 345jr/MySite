@@ -19,7 +19,7 @@ const props = defineProps({
       <div class="hidden h-full sm:flex sm:flex-col">
         <div class="h-48 w-full overflow-hidden">
           <img
-            :src="idea.img"
+            :src="`https://asset.lopop.top/public/images/${idea.id}.webp`"
             alt="Article Image"
             class="h-full w-full object-cover"
             loading="lazy"
@@ -29,7 +29,7 @@ const props = defineProps({
           <h3 class="text-lg font-bold text-gray-800">{{ idea.title }}</h3>
           <p class="mt-1 flex-1 text-sm text-gray-500">{{ idea.summary }}</p>
           <p class="pi pi-calendar-clock mt-2 text-sm text-gray-600">
-            {{ idea.time }}
+            {{ idea.updated_at}}
           </p>
         </div>
       </div>
@@ -38,7 +38,7 @@ const props = defineProps({
       <div class="flex h-32 flex-row sm:hidden">
         <div class="w-1/3 overflow-hidden">
           <img
-            :src="idea.img"
+            :src="`https://asset.lopop.top/public/images/${idea.id}.webp`"
             alt="Article Image"
             class="h-full w-full object-cover"
           />
@@ -52,7 +52,7 @@ const props = defineProps({
               {{ idea.summary }}
             </p>
           </div>
-          <p class="text-sm text-gray-600">发布时间: {{ idea.time }}</p>
+          <p class="text-sm text-gray-600">发布时间: {{ idea.updated_at }}</p>
         </div>
       </div>
     </div>

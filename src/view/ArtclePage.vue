@@ -8,11 +8,10 @@ const article = ref(null);
 const md = new MarkdownIt();
 const html = ref('');
 
-article.value = data;
-html.value = md.render(data.content);
+
 const getArticle = async (id) => {
   try {
-    const response = await fetch(`https://post.lopop.top/api/note/${id}`);
+    const response = await fetch(`https://note.lopop.top/note/${id}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -23,11 +22,7 @@ const getArticle = async (id) => {
     console.error('获取文章数据失败:', error);
   }
 };
-onMounted(
-  () => {
-    getArticle();
-  }
-);
+
 watch(() => router.params.id , (newid) =>{
   if (newid) getArticle(newid);
 },{ immediate: true });
@@ -36,10 +31,10 @@ watch(() => router.params.id , (newid) =>{
 <template>
   <section class="px-6 py-12 sm:px-8">
     <div class="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-md md:p-10">
-      <h1 class="text-3xl font-bold text-gray-800">{{ article.title }}</h1>
+      <h1 class="text-3xl font-bold text-gray-800"> {{ article?.title || '加载中…' }}</h1>
       <div class="flex flex-row justify-normal">
-        <p class="time-text">发布时间：{{ article.time }}</p>
-        <p class="time-text">更新时间：{{ article.uptime }}</p>
+        <p class="time-text">发布时间：{{ article?.created_at || '加载中…' }}</p>
+        <p class="time-text">更新时间：{{ article?.updated_at || '加载中…'}}</p>
       </div>
 
       <div class="markdown-content">

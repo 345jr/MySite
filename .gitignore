@@ -15,6 +15,9 @@ nginx/
 Dockerfile
 
 # Editor directories and files
+待转化
+废品
+JSON文章
 .vscode/
 .public/
 .idea

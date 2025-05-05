@@ -3,17 +3,13 @@
 <script setup>
 import NoteCard from "./NoteCard.vue";
 import BottomList from "@/components/文章主页/BottomList.vue";
-import artcleData from "@/data/artcles_data.json";
 import gamesData from "@/data/games.json";
 import musicData from "@/data/musics.json";
 import tasksData from "@/data/tasks.json";
 import { ref, onMounted, computed  , nextTick} from "vue";
 import { gsap } from "gsap";
 
-const MyIdeas = ref(
-  [...artcleData].sort((a, b) => new Date(b.uptime) - new Date(a.uptime)),
-);
-
+const MyIdeas = ref([]);
 const Mylove1 = ref(gamesData);
 const Mylove2 = ref(musicData);
 const Mylove3 = ref(tasksData);
@@ -118,6 +114,19 @@ function animateCardExit(callback) {
     }
   })
 }
+onMounted(async() => {
+  try { 
+    const response = await fetch(`https://note.lopop.top/notes`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    MyIdeas.value = data.slice().sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+  } catch (error) { 
+    console.error('获取文章数据失败:', error);
+  }
+  
+})
 </script>
 
 <template>
